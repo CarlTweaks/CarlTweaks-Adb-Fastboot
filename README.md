@@ -1,12 +1,16 @@
-# CarlTweaks-Adb-Fastboot
-An automated ADB and Fastboot wrapper for Termux (Android-to-Android).
+# 🛠️ CarlTweaks ADB & Fastboot Wrapper
 
-## Features
-- **Auto-Detect USB Path:** No more manual typing of `/dev/bus/usb/xxx/xxx`.
-- **Auto-Permission:** Automatically triggers the Termux-USB permission prompt.
-- **Dual Support:** Works for both ADB and Fastboot commands.
+A smart, automated wrapper for **ADB** and **Fastboot** on Termux (Android-to-Android modding). This tool is based on the platform-tools from Rendiix but enhanced with **CarlTweaks Auto-Detect Logic** to eliminate the need for manual USB path addressing.
 
-## Installation
-Run this command in Termux:
+## 🚀 Features
+- **Auto-Detect USB Path:** No more checking for `/dev/bus/usb/00x/00x`. The script finds the device for you.
+- **Auto-Permission Prompt:** Automatically triggers the Termux-USB permission dialog.
+- **Integrated ADB & Fastboot:** Both tools are wrapped with the same smart logic.
+- **One-Line Installation:** Simple setup via `curl`.
+
+## 📦 Installation
+
+Copy and paste the command below into your Termux:
+
 ```bash
-curl -sL [https://raw.githubusercontent.com/YOUR_USERNAME/CarlTweaks-Fastboot/main/install.sh](https://raw.githubusercontent.com/YOUR_USERNAME/CarlTweaks-Fastboot/main/install.sh) | bash
+curl -sL [https://raw.githubusercontent.com/CarlTweaks/CarlTweaks-Adb-Fastboot/refs/heads/main/install.sh](https://raw.githubusercontent.com/CarlTweaks/CarlTweaks-Adb-Fastboot/refs/heads/main/install.sh) | bash
