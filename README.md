@@ -1,46 +1,33 @@
 # 🛠️ CarlTweaks ADB & Fastboot Wrapper
 
-A smart, automated wrapper for **ADB** and **Fastboot** on Termux (Android-to-Android modding). This tool is based on the platform-tools from Rendiix but enhanced with **CarlTweaks Auto-Detect Logic** to eliminate the need for manual USB path addressing.
+A smart, automated wrapper for ADB and Fastboot on Termux (Android-to-Android modding).
 
-## 🚀 Features
-- **Auto-Detect USB Path:** No more checking for `/dev/bus/usb/00x/00x`. The script finds the device for you.
-- **Auto-Permission Prompt:** Automatically triggers the Termux-USB permission dialog.
-- **Integrated ADB & Fastboot:** Both tools are wrapped with the same smart logic.
-- **One-Line Installation:** Simple setup via `curl`.
+## 📋 ALL-IN-ONE DETAILS (Copy Everything Below)
 
-## 📦 Installation
+```text
+=========================================
+      CARLTWEAKS ADB & FASTBOOT
+=========================================
 
-Copy and paste the command below into your Termux:
-
-```bash
+🚀 [1. INSTALLATION]
+Copy and paste this in Termux:
 curl -sL [https://raw.githubusercontent.com/CarlTweaks/CarlTweaks-Adb-Fastboot/refs/heads/main/install.sh](https://raw.githubusercontent.com/CarlTweaks/CarlTweaks-Adb-Fastboot/refs/heads/main/install.sh) | bash
 
-## ⚠️ Requirements
+⚠️ [2. REQUIREMENTS]
+- Termux-API App (Download from F-Droid)
+- OTG Cable / Adapter
+- USB Debugging enabled on Target Device
 
-Before using the tool, ensure you have the following:
+📖 [3. HOW TO USE]
+Step 1: Connect host and target devices via OTG.
+Step 2: Type 'adb devices' or 'fastboot devices'.
+Step 3: Click 'OK' on the Termux-USB permission pop-up.
+Step 4: Run your commands (e.g., 'adb shell' or 'fastboot flash').
 
-* **Termux-API (App):** Must be installed on your device. Download it via [F-Droid](https://f-droid.org/en/packages/com.termux.api/) or GitHub.
-* **OTG Cable/Adapter:** Required to connect the two Android devices.
-* **USB Debugging:** Must be enabled in "Developer Options" on the target device (for ADB use).
-
----
-
-## 📖 Instructions (How to Use)
-
-Follow these simple steps to use CarlTweaks:
-
-### 1. Hardware Connection
-* Plug the OTG adapter into your **Host Phone** (where Termux is installed).
-* Connect the other end to the **Target Device** you want to mod.
-
-### 2. Authorization
-* Type `fastboot devices` or `adb devices` in Termux.
-* A **Termux-USB permission prompt** will appear; click **OK**.
-* (For ADB) An **RSA Authorization** prompt will appear on the target device's screen; click **Allow**.
-
-### 3. Running Commands
-* You can now run standard commands without manually inputting the USB path.
-* *Example:* `fastboot flash recovery recovery.img` or `adb shell`.
-
----
-**Maintained by [CarlTweaks](https://github.com/CarlTweaks)**
+💡 [4. FEATURES]
+- Automated USB path detection
+- Integrated ADB & Fastboot logic
+- One-line setup
+=========================================
+Maintained by: CarlTweaks
+=========================================
