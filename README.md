@@ -2,7 +2,7 @@
 
 A smart, automated wrapper for ADB and Fastboot on Termux (Android-to-Android modding).
 
-## 📋 ALL-IN-ONE DETAILS (Copy Everything Below)
+## 📋 ALL-IN-ONE DETAILS
 
 ```text
 =========================================
