@@ -11,7 +11,7 @@ A smart, automated wrapper for ADB and Fastboot on Termux (Android-to-Android mo
 
 🚀 [1. INSTALLATION]
 Copy and paste this in Termux:
-curl -sL [https://raw.githubusercontent.com/CarlTweaks/CarlTweaks-Adb-Fastboot/refs/heads/main/install.sh](https://raw.githubusercontent.com/CarlTweaks/CarlTweaks-Adb-Fastboot/refs/heads/main/install.sh) | bash
+curl -sL https://raw.githubusercontent.com/CarlTweaks/CarlTweaks-Adb-Fastboot/refs/heads/main/install.sh | bash
 
 ⚠️ [2. REQUIREMENTS]
 - Termux-API App (Download from F-Droid)
