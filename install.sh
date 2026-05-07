@@ -1,47 +1,47 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
-# 1. Standard Updates & Dependencies
+echo "🚀 Starting CarlTweaks Automated Installation..."
+
+# 1. Standard Update & Dependency Install
 apt-get update
 apt-get --assume-yes upgrade
-apt-get --assume-yes install coreutils gnupg wget jq termux-api -y
+apt-get --assume-yes install coreutils gnupg wget jq termux-api android-tools -y
 
-# 2. Rendiix Repo Installation
-if [ ! -f "$PREFIX/etc/apt/sources.list.d/rendiix.list" ]; then
-  mkdir -p $PREFIX/etc/apt/sources.list.d
-  echo "deb https://rendiix.github.io android-tools main" > $PREFIX/etc/apt/sources.list.d/rendiix.list
-  wget -qP $PREFIX/etc/apt/trusted.gpg.d https://rendiix.github.io/rendiix.gpg
-  apt update
-  apt install platform-tools -y
-else
-  echo "Repo already installed. Updating tools..."
-  apt install platform-tools -y
-fi
+# 2. Inject CarlTweaks Auto-Detect Logic
+echo "🛠️ Injecting CarlTweaks Auto-Detect Logic..."
 
-# 3. --- CarlTweaks "gfastboot" Logic Injection ---
-# Dito na papasok yung galing ni gfastboot para sa ADB at Fastboot
-echo "Injecting CarlTweaks Auto-Detect Logic..."
+# Rename original binaries to -raw
+mv $PREFIX/bin/adb $PREFIX/bin/adb-raw 2>/dev/null
+mv $PREFIX/bin/fastboot $PREFIX/bin/fastboot-raw 2>/dev/null
 
-for tool in adb fastboot; do
-    # Itago ang original binary
-    if [ -f "$PREFIX/bin/$tool" ] && [ ! -f "$PREFIX/bin/$tool-raw" ]; then
-        mv $PREFIX/bin/$tool $PREFIX/bin/$tool-raw
-    fi
-
-    # Gawin ang wrapper (ito yung 'gfastboot' logic mo)
-    cat <<EOF > $PREFIX/bin/$tool
+# Create the ADB wrapper with "No Device" alert
+cat << 'EOF' > $PREFIX/bin/adb
 #!/data/data/com.termux/files/usr/bin/bash
-# CarlTweaks Auto-Detect Wrapper for $tool
-USB_PATH=\$(termux-usb -l | jq -r '.[0]')
-if [ "\$USB_PATH" != "null" ] && [ -n "\$USB_PATH" ]; then
-    termux-usb -r "\$USB_PATH" -e "$PREFIX/bin/$tool-raw \$@"
+USB_PATH=$(termux-usb -l | jq -r '.[0]' 2>/dev/null)
+if [ -z "$USB_PATH" ] || [ "$USB_PATH" == "null" ]; then
+    echo "⚠️ [CarlTweaks] No OTG device detected. Please connect your device and check OTG settings."
+    adb-raw "$@"
 else
-    echo "❌ [CarlTweaks] Error: No device found. Check OTG/Cable."
-    exit 1
+    termux-usb -r "$USB_PATH" 2>/dev/null
+    adb-raw -t "$USB_PATH" "$@"
 fi
 EOF
-    chmod +x $PREFIX/bin/$tool
-    chmod +x $PREFIX/bin/$tool-raw
-done
+
+# Create the Fastboot wrapper with "No Device" alert
+cat << 'EOF' > $PREFIX/bin/fastboot
+#!/data/data/com.termux/files/usr/bin/bash
+USB_PATH=$(termux-usb -l | jq -r '.[0]' 2>/dev/null)
+if [ -z "$USB_PATH" ] || [ "$USB_PATH" == "null" ]; then
+    echo "⚠️ [CarlTweaks] No OTG device detected. Please connect your device and check OTG settings."
+    fastboot-raw "$@"
+else
+    termux-usb -r "$USB_PATH" 2>/dev/null
+    fastboot-raw -t "$USB_PATH" "$@"
+fi
+EOF
+
+# 3. Set Permissions
+chmod +x $PREFIX/bin/adb $PREFIX/bin/adb-raw $PREFIX/bin/fastboot $PREFIX/bin/fastboot-raw
 
 echo "✅ CarlTweaks ADB & Fastboot Integration Complete!"
-echo "You can now use 'adb' or 'fastboot' directly."
+echo "💡 Try typing 'adb devices' or 'fastboot devices' now."
